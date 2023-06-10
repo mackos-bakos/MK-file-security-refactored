@@ -1,129 +1,148 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>MK file security refactored</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            padding: 50px;
-            background-color: #1a1919;
-        }
-        .feature-block {
-            background-color: #242323;
-            padding: 20px;
-            margin-bottom: 30px;
-            border-radius: 5px;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-        }
-        .input-block {
-            margin-bottom: 15px;
-        }
-        .input-block label {
-            display: block;
-            margin-bottom: 5px;
-            color: white;
-        }
-        .input-block input {
-            color: black;
-        }
-        button {
-            background-color: red;
-            color: white;
-            border: none;
-            padding: 10px 15px;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        button:hover {
-            background-color: darkred;
-        }
-		input[type="text"] {
-            width: 40ch;
-        }
-		input[type="password"] {
-            width: 40ch;
-        }
-    </style>
+    <title>MK File Security Refactored</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+	<style>
+		body {
+			font-family: Arial, sans-serif;
+			padding: 50px;
+			background-color: #1a1919;
+			color: #FFF;
+		}
+		.feature-block {
+			background-color: #242323;
+			padding: 20px;
+			margin-bottom: 30px;
+			border-radius: 5px;
+			box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+		}
+		.form-group {
+			margin-bottom: 15px;
+		}
+		.form-group label {
+			display: block;
+			margin-bottom: 5px;
+		}
+		.form-group input[type="text"], .form-group input[type="password"] {
+			color: black;
+			width: 100%;
+			padding: 10px;
+			border-radius: 5px;
+			border: 1px solid #ddd;
+		}
+		.form-check {
+			display: block;
+			margin-bottom: 10px;
+		}
+		.form-check input {
+			margin-right: 5px;
+		}
+		.form-check label {
+			color: #FFF;
+		}
+		.btn-custom {
+			background-color: red;
+			color: white;
+			border: none;
+			padding: 10px 15px;
+			border-radius: 5px;
+			cursor: pointer;
+		}
+		.btn-custom:hover {
+			background-color: darkred;
+		}
+	</style>
+
 </head>
 <body>
-    <h2 style="color: white;">MK file security web interface</h2>
-	
-    <div class="feature-block">
-        <h3  style="color: white;">Purge Directory</h3>
-        <form action="/purge" method="post">
-            <div class="input-block">
-                <label  style="color: white;" for="purge">File Types e.g .png,.jpg,.txt (required field)</label>
-                <input type="text" id="purge" name="purge" placeholder="Enter file types, separated by commas">
-            </div>
-            <button type="submit">Run Command</button>
-        </form>
-    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
+                <h2 class="text-center mt-4 mb-4">MK File Security Web Interface</h2>
 
-    <div class="feature-block">
-        <h3  style="color: white;">Decrypt Directory</h3>
-        <form action="/decrypt" method="post">
-            <div class="input-block">
-                <label  style="color: white;" for="decryptionKey">Decryption Key</label>
-                <input type="password" id="decryptionKey" name="decryptionKey">
-            </div>
-            <div class="input-block">
-                <label for="keepOriginal">
-                    <input type="checkbox" id="keepOriginal" name="keepOriginal"> Keep Original Encrypted File? 
-                </label>
-				<label for="SeperateFiles">
-                    <input type="checkbox" id="SeperateFiles" name="SeperateFiles"> seperate raw and encrypted files in different dirs?
-                </label>
-               <label for="HashKeyDecrypt">
-                    <input type="checkbox" id="HashKeyDecrypt" name="HashKeyDecrypt"> hash the decryption key?
-                </label>
-            </div>
-            <button type="submit">Run Command</button>
-        </form>
-    </div>
+                <div class="feature-block">
+                    <h3>Purge Directory</h3>
+                    <form action="/purge" method="post">
+                        <div class="form-group">
+                            <label for="purge">File Types (e.g .png,.jpg,.txt - required)</label>
+                            <input type="text" class="form-control" id="purge" name="purge" placeholder="Enter file types, separated by commas">
+                        </div>
+                        <button type="submit" class="btn btn-custom">Run Command</button>
+                    </form>
+                </div>
 
-    <div class="feature-block">
-        <h3  style="color: white;">Encrypt Directory</h3>
-        <form action="/encrypt" method="post">
-            <div class="input-block">
-                <label style="color: white;" for="encryptionKey">Encryption Key</label>
-                <input type="password" id="encryptionKey" name="encryptionKey">
-            </div>
-            <div class="input-block">
-                <label for="backup">
-                    <input type="checkbox" id="backup" name="backup"> Backup Encrypted Files?
-                </label>
-                <label for="keepDecrypted">
-                    <input type="checkbox" id="keepDecrypted" name="keepDecrypted"> Keep Decrypted Files?
-                </label>
-                <label for="HashKeyEncrypt">
-                    <input type="checkbox" id="HashKeyEncrypt" name="HashKeyEncrypt"> hash the encryption key?
-                </label>
-            </div>
-            <button type="submit">Run Command</button>
-        </form>
-    </div>
+				<div class="feature-block">
+					<h3>Decrypt Directory</h3>
+					<form action="/decrypt" method="post">
+						<div class="form-group">
+							<label for="decryptionKey">Decryption Key</label>
+							<input type="password" class="form-control" id="decryptionKey" name="decryptionKey">
+						</div>
+						<div class="form-check">
+							<input class="form-check-input" type="checkbox" id="keepOriginal" name="keepOriginal">
+							<label class="form-check-label" for="keepOriginal">Keep Original Encrypted File?</label>
+						</div>
+						<div class="form-check">
+							<input class="form-check-input" type="checkbox" id="SeperateFiles" name="SeperateFiles">
+							<label class="form-check-label" for="SeperateFiles">Separate raw and encrypted files in different dirs?</label>
+						</div>
+						<div class="form-check">
+							<input class="form-check-input" type="checkbox" id="HashKeyDecrypt" name="HashKeyDecrypt">
+							<label class="form-check-label" for="HashKeyDecrypt">Hash the decryption key?</label>
+						</div>
+						<button type="submit" class="btn btn-custom">Run Command</button>
+					</form>
+				</div>
 
-    <div class="feature-block">
-        <h3  style="color: white;">randomise file names</h3>
-        <form action="/obscure" method="post">
-            <button type="submit">Run Command</button>
-        </form>
-    </div>
+				<div class="feature-block">
+					<h3>Encrypt Directory</h3>
+					<form action="/encrypt" method="post">
+						<div class="form-group">
+							<label for="encryptionKey">Encryption Key</label>
+							<input type="password" class="form-control" id="encryptionKey" name="encryptionKey">
+						</div>
+						<div class="form-check">
+							<input class="form-check-input" type="checkbox" id="backup" name="backup">
+							<label class="form-check-label" for="backup">Backup Encrypted Files?</label>
+						</div>
+						<div class="form-check">
+							<input class="form-check-input" type="checkbox" id="keepDecrypted" name="keepDecrypted">
+							<label class="form-check-label" for="keepDecrypted">Keep Decrypted Files?</label>
+						</div>
+						<div class="form-check">
+							<input class="form-check-input" type="checkbox" id="HashKeyEncrypt" name="HashKeyEncrypt">
+							<label class="form-check-label" for="HashKeyEncrypt">Hash the encryption key?</label>
+						</div>
+						<button type="submit" class="btn btn-custom">Run Command</button>
+					</form>
+				</div>
 
-    <div class="feature-block">
-        <h3  style="color: white;">Swap File Extensions</h3>
-        <form action="/swap" method="post">
-            <div class="input-block">
-                <label style="color: white;" for="swapFrom">Swap From e.g .jpg</label>
-                <input type="text" id="swapFrom" name="swapFrom">
+				<div class="feature-block">
+					<h3>Randomize File Names</h3>
+					<form action="/obscure" method="post">
+						<button type="submit" class="btn btn-custom">Run Command</button>
+					</form>
+				</div>
+
+				<div class="feature-block">
+					<h3>Swap File Extensions</h3>
+					<form action="/swap" method="post">
+						<div class="form-group">
+							<label for="swapFrom">Swap From (e.g .jpg)</label>
+							<input type="text" class="form-control" id="swapFrom" name="swapFrom">
+						</div>
+						<div class="form-group">
+							<label for="swapTo">Swap To (e.g .png)</label>
+							<input type="text" class="form-control" id="swapTo" name="swapTo">
+						</div>
+						<button type="submit" class="btn btn-custom">Run Command</button>
+					</form>
+				</div>
+
             </div>
-            <div class="input-block">
-                <label style="color: white;" for="swapTo">Swap To e.g .png</label>
-                <input type="text" id="swapTo" name="swapTo">
-            </div>
-            <button type="submit">Run Command</button>
-        </form>
+        </div>
     </div>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </body>
-
 </html>
