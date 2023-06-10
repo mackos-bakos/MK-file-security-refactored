@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>MK file security refactored</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 50px;
+            background-color: #1a1919;
+        }
+        .feature-block {
+            background-color: #242323;
+            padding: 20px;
+            margin-bottom: 30px;
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+        .input-block {
+            margin-bottom: 15px;
+        }
+        .input-block label {
+            display: block;
+            margin-bottom: 5px;
+            color: white;
+        }
+        .input-block input {
+            color: black;
+        }
+        button {
+            background-color: red;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: darkred;
+        }
+		input[type="text"] {
+            width: 40ch;
+        }
+		input[type="password"] {
+            width: 40ch;
+        }
+    </style>
+</head>
+<body>
+    <h2 style="color: white;">MK file security web interface</h2>
+	
+    <div class="feature-block">
+        <h3  style="color: white;">Purge Directory</h3>
+        <form action="/purge" method="post">
+            <div class="input-block">
+                <label  style="color: white;" for="purge">File Types e.g .png,.jpg,.txt (required field)</label>
+                <input type="text" id="purge" name="purge" placeholder="Enter file types, separated by commas">
+            </div>
+            <button type="submit">Run Command</button>
+			<p style="color:{{ purge_output_colour }}; font-size:10px;"> {{purge_output_message}}</p
+        </form>
+    </div>
+
+    <div class="feature-block">
+        <h3  style="color: white;">Decrypt Directory</h3>
+        <form action="/decrypt" method="post">
+            <div class="input-block">
+                <label  style="color: white;" for="decryptionKey">Decryption Key</label>
+                <input type="password" id="decryptionKey" name="decryptionKey">
+            </div>
+            <div class="input-block">
+                <label for="keepOriginal">
+                    <input type="checkbox" id="keepOriginal" name="keepOriginal"> Keep Original Encrypted File? 
+                </label>
+				<label for="SeperateFiles">
+                    <input type="checkbox" id="SeperateFiles" name="SeperateFiles"> seperate raw and encrypted files in different dirs?
+                </label>
+            </div>
+            <button type="submit">Run Command</button>
+			<p style="color:{{ decrypt_output_colour }}; font-size:10px;"> {{decrypt_output_message}}</p
+        </form>
+    </div>
+
+    <div class="feature-block">
+        <h3  style="color: white;">Encrypt Directory</h3>
+        <form action="/encrypt" method="post">
+            <div class="input-block">
+                <label for="backup">
+                    <input type="checkbox" id="backup" name="backup"> Backup Encrypted Files?
+                </label>
+            </div>
+            <div class="input-block">
+                <label for="keepDecrypted">
+                    <input type="checkbox" id="keepDecrypted" name="keepDecrypted"> Keep Decrypted Files?
+                </label>
+            </div>
+            <div class="input-block">
+                <label style="color: white;" for="encryptionKey">Encryption Key</label>
+                <input type="password" id="encryptionKey" name="encryptionKey">
+            </div>
+            <button type="submit">Run Command</button>
+			<p style="color:{{ encrypt_output_colour }}; font-size:10px;"> {{encrypt_output_message}}</p
+        </form>
+    </div>
+
+    <div class="feature-block">
+        <h3  style="color: white;">randomise file names</h3>
+        <form action="/obscure" method="post">
+            <button type="submit">Run Command</button>
+			<p style="color:{{ obscure_output_colour }}; font-size:10px;"> {{obscure_output_message}}</p
+        </form>
+    </div>
+
+    <div class="feature-block">
+        <h3  style="color: white;">Swap File Extensions</h3>
+        <form action="/swap" method="post">
+            <div class="input-block">
+                <label style="color: white;" for="swapFrom">Swap From e.g .jpg</label>
+                <input type="text" id="swapFrom" name="swapFrom">
+            </div>
+            <div class="input-block">
+                <label style="color: white;" for="swapTo">Swap To e.g .png</label>
+                <input type="text" id="swapTo" name="swapTo">
+            </div>
+            <button type="submit">Run Command</button>
+			<p style="color:{{ swap_output_colour }}; font-size:10px;"> {{swap_output_message}}</p
+        </form>
+    </div>
+</body>
+
+</html>
