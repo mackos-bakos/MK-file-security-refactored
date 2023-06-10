@@ -41,7 +41,9 @@ def decrypt():
     decryption_key = request.form.get("decryptionKey")
     keep_original = request.form.get("keepOriginal")
     seperate = request.form.get("keepDecrypted")
-    
+    should_hash_decrypt = request.form.get("HashKeyDecrypt")
+    if should_hash_decrypt:
+        decryption_key = hash_md5(decryption_key)
     if decryption_key == "":
         return render_template('menu.html', decrypt_output_colour="red", decrypt_output_message=f"command execution failed with params {decryption_key}, {keep_original}, {seperate}")
     decrypt_directory(selected_directory,not keep_original,True,seperate,decryption_key)
@@ -52,7 +54,9 @@ def encrypt():
     backup = request.form.get("backup")
     keep_decrypted = request.form.get("keepDecrypted")
     encryption_key = request.form.get("encryptionKey")
-    
+    should_hash_encrypt = request.form.get("HashKeyEncrypt")
+    if should_hash_encrypt:
+        encryption_key = hash_md5(encryption_key)
     if encryption_key == "":
         return render_template('menu.html', encrypt_output_colour="red", encrypt_output_message=f"command execution failed with params {encryption_key}, {backup}, {keep_decrypted}")
     encrypt_directory(selected_directory,not keep_decrypted,True,backup,encryption_key)
