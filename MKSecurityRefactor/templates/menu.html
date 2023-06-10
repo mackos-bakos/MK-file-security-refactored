@@ -56,7 +56,6 @@
                 <input type="text" id="purge" name="purge" placeholder="Enter file types, separated by commas">
             </div>
             <button type="submit">Run Command</button>
-			<p style="color:{{ purge_output_colour }}; font-size:10px;"> {{purge_output_message}}</p
         </form>
     </div>
 
@@ -74,12 +73,11 @@
 				<label for="SeperateFiles">
                     <input type="checkbox" id="SeperateFiles" name="SeperateFiles"> seperate raw and encrypted files in different dirs?
                 </label>
-               <label for="HashKeyEncrypt">
-                    <input type="checkbox" id="HashKeyEncrypt" name="HashKeyEncrypt"> hash the encryption key?
+               <label for="HashKeyDecrypt">
+                    <input type="checkbox" id="HashKeyDecrypt" name="HashKeyDecrypt"> hash the decryption key?
                 </label>
             </div>
             <button type="submit">Run Command</button>
-			<p style="color:{{ decrypt_output_colour }}; font-size:10px;"> {{decrypt_output_message}}</p
         </form>
     </div>
 
@@ -97,12 +95,11 @@
                 <label for="keepDecrypted">
                     <input type="checkbox" id="keepDecrypted" name="keepDecrypted"> Keep Decrypted Files?
                 </label>
-                <label for="HashKeyDecrypt">
-                    <input type="checkbox" id="HashKeyDecrypt" name="HashKeyDecrypt"> hash the decryption key?
+                <label for="HashKeyEncrypt">
+                    <input type="checkbox" id="HashKeyEncrypt" name="HashKeyEncrypt"> hash the encryption key?
                 </label>
             </div>
             <button type="submit">Run Command</button>
-			<p style="color:{{ encrypt_output_colour }}; font-size:10px;"> {{encrypt_output_message}}</p
         </form>
     </div>
 
@@ -110,7 +107,6 @@
         <h3  style="color: white;">randomise file names</h3>
         <form action="/obscure" method="post">
             <button type="submit">Run Command</button>
-			<p style="color:{{ obscure_output_colour }}; font-size:10px;"> {{obscure_output_message}}</p
         </form>
     </div>
 
@@ -126,7 +122,6 @@
                 <input type="text" id="swapTo" name="swapTo">
             </div>
             <button type="submit">Run Command</button>
-			<p style="color:{{ swap_output_colour }}; font-size:10px;"> {{swap_output_message}}</p
         </form>
     </div>
 </body>
