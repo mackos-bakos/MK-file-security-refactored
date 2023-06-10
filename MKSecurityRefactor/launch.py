@@ -31,10 +31,10 @@ def purge():
         file_types = file_types.split(",")
 
     if file_types == ['']:
-        return render_template('menu.html', purge_output_colour="red", purge_output_message=f"command execution failed with params {file_types}")
+        return redirect(url_for('render_ui'))
 
     purge_directory(selected_directory, file_types, True)
-    return render_template('menu.html', purge_output_colour="white", purge_output_message=f"command executed with params {file_types}")
+    return redirect(url_for('render_ui'))
 
 @app.route("/decrypt", methods=["POST"])
 def decrypt():
@@ -45,9 +45,9 @@ def decrypt():
     if should_hash_decrypt:
         decryption_key = hash_md5(decryption_key)
     if decryption_key == "":
-        return render_template('menu.html', decrypt_output_colour="red", decrypt_output_message=f"command execution failed with params {decryption_key}, {keep_original}, {seperate}")
+        return redirect(url_for('render_ui'))
     decrypt_directory(selected_directory,not keep_original,True,seperate,decryption_key)
-    return render_template('menu.html', decrypt_output_colour="white", decrypt_output_message=f"command executed with params {decryption_key}, {keep_original}, {seperate}")
+    return redirect(url_for('render_ui'))
 
 @app.route("/encrypt", methods=["POST"])
 def encrypt():
@@ -58,23 +58,23 @@ def encrypt():
     if should_hash_encrypt:
         encryption_key = hash_md5(encryption_key)
     if encryption_key == "":
-        return render_template('menu.html', encrypt_output_colour="red", encrypt_output_message=f"command execution failed with params {encryption_key}, {backup}, {keep_decrypted}")
+        return redirect(url_for('render_ui'))
     encrypt_directory(selected_directory,not keep_decrypted,True,backup,encryption_key)
-    return render_template('menu.html', encrypt_output_colour="white", encrypt_output_message=f"command executed with params {encryption_key}, {backup}, {keep_decrypted}")
+    return redirect(url_for('render_ui'))
 
 @app.route("/obscure", methods=["POST"])
 def obscure():
     obscure_directory(selected_directory)
-    return render_template('menu.html', obscure_output_colour="white", obscure_output_message=f"command executed")
+    return redirect(url_for('render_ui'))
 
 @app.route("/swap", methods=["POST"])
 def swap():
     swap_from = request.form.get("swapFrom")
     swap_to = request.form.get("swapTo")
     if "." not in swap_from or "." not in swap_to:
-        return render_template('menu.html', swap_output_colour="red", swap_output_message=f"command execution failed with params {swap_from}, {swap_to}")
+        return redirect(url_for('render_ui'))
     swap_file_extensions(selected_directory,swap_from,swap_to)
-    return render_template('menu.html', swap_output_colour="white", swap_output_message=f"command executed with params {swap_from}, {swap_to}")
+    return redirect(url_for('render_ui'))
 
 if __name__ == '__main__':
     app.run(host='localhost', port=8000)
