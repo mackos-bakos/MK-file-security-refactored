@@ -74,6 +74,9 @@
 				<label for="SeperateFiles">
                     <input type="checkbox" id="SeperateFiles" name="SeperateFiles"> seperate raw and encrypted files in different dirs?
                 </label>
+               <label for="HashKeyEncrypt">
+                    <input type="checkbox" id="HashKeyEncrypt" name="HashKeyEncrypt"> hash the encryption key?
+                </label>
             </div>
             <button type="submit">Run Command</button>
 			<p style="color:{{ decrypt_output_colour }}; font-size:10px;"> {{decrypt_output_message}}</p
@@ -84,18 +87,19 @@
         <h3  style="color: white;">Encrypt Directory</h3>
         <form action="/encrypt" method="post">
             <div class="input-block">
+                <label style="color: white;" for="encryptionKey">Encryption Key</label>
+                <input type="password" id="encryptionKey" name="encryptionKey">
+            </div>
+            <div class="input-block">
                 <label for="backup">
                     <input type="checkbox" id="backup" name="backup"> Backup Encrypted Files?
                 </label>
-            </div>
-            <div class="input-block">
                 <label for="keepDecrypted">
                     <input type="checkbox" id="keepDecrypted" name="keepDecrypted"> Keep Decrypted Files?
                 </label>
-            </div>
-            <div class="input-block">
-                <label style="color: white;" for="encryptionKey">Encryption Key</label>
-                <input type="password" id="encryptionKey" name="encryptionKey">
+                <label for="HashKeyDecrypt">
+                    <input type="checkbox" id="HashKeyDecrypt" name="HashKeyDecrypt"> hash the decryption key?
+                </label>
             </div>
             <button type="submit">Run Command</button>
 			<p style="color:{{ encrypt_output_colour }}; font-size:10px;"> {{encrypt_output_message}}</p
